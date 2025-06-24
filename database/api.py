@@ -14,6 +14,7 @@ class Prediction(BaseModel):
     friend_prediction : str = None
     stake : int = None
 
+
 app = FastAPI()
 
 @app.get('/users/{user_id}/predictions')
@@ -64,11 +65,5 @@ def write_predictions(new_prediction: Prediction):
     conn.close()
     print(result)
 
-
-if __name__ == '__main__':
-    new_user = NewUser(first_name="Carlos", last_name="Byrne")
-    create_user(new_user)
-    # get_predictions()
-    new_prediction = Prediction(user_id=1, prediction="Alcaraz to be #1 by EOY")
-    write_predictions(new_prediction)
+# need to implement proper HTTP response codes
     
