@@ -2,4 +2,4 @@ venv/
 .pytest_cache/
 __pycache__/git 
 __pycache__
-.env
+*.env
