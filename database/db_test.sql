@@ -1,7 +1,7 @@
-DROP DATABASE IF EXISTS predicta_app;
-CREATE DATABASE predicta_app;
+DROP DATABASE IF EXISTS test_predicta_app;
+CREATE DATABASE test_predicta_app;
 
-\c predicta_app
+\c test_predicta_app
 
 DROP TABLE IF EXISTS user_info;
 CREATE TABLE user_info (

@@ -3,10 +3,16 @@ from dotenv import load_dotenv
 import os
 
 
-load_dotenv(override=True)
 
 def connect_to_db():
-    #print(os.getenv("PG_DATABASE"), os.getenv("PG_PORT"))
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    if os.environ.get("TESTING") != 'True':
+        load_dotenv(override=True)
+    else:
+        path = script_dir + "/tests/testing.env"
+        load_dotenv(dotenv_path=path, override=True)
+
+
     return Connection(
         user=os.getenv("PG_USER"),
         password=os.getenv("PG_PASSWORD"),

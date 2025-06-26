@@ -28,12 +28,15 @@ def get_predictions(user_id: int):
 
 @app.post('/users', status_code=201)
 def create_user(new_user: NewUser):
-    query = """INSERT INTO user_info
-            (first_name, last_name)
-            VALUES
-            (:first_name, :last_name);"""
-    conn = connect_to_db()
-    result = conn.run(query, first_name= new_user.first_name, last_name = new_user.last_name)
+    try:
+        query = """INSERT INTO user_info
+                (first_name, last_name)
+                VALUES
+                (:first_name, :last_name);"""
+        conn = connect_to_db()
+        result = conn.run(query, first_name= new_user.first_name, last_name = new_user.last_name)
+    except Exception as e:
+        print("EXCEPTION", e)
     conn.close()
     return {"success": "new user created"}
     
@@ -47,7 +50,10 @@ def get_user(user_id: int):
     cols = [col['name'] for col in conn.columns]
     conn.close()
     formatted = [{col: val for col, val in zip(cols, item)} for item in vals]
-    return formatted[0]
+    try:
+        return formatted[0]
+    except:
+        return {"error": "user not found"}
 
 @app.post('/users/{user_id}/predictions', status_code=201)
 def write_predictions(new_prediction: Prediction, user_id: int):
